@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+    requirements-file: requirements.yml
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: geerlingguy/docker-ubuntu2004-ansible
+    #image: python:3.9-bullseye
+    tmpfs:
+      - /run
+      - /tmp
+    command: /sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    capabilities:
+      - SYS_ADMIN
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
